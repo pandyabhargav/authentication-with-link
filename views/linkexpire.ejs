@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Link Expired</title>
+  <style>
+    /* Body styling */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
+      color: #333;
+      animation: gradientBackground 6s ease infinite;
+      background-size: 400% 400%;
+    }
+
+    /* Background animation */
+    @keyframes gradientBackground {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Centering the content */
+    .container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      max-width: 450px;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    /* Fade-in effect for the container */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Heading styling */
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #e74c3c;
+      margin-bottom: 15px;
+    }
+
+    /* Paragraph styling */
+    p {
+      font-size: 18px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    /* Button link styling */
+    a {
+      display: inline-block;
+      font-size: 16px;
+      color: #fff;
+      background-color: #3498db;
+      padding: 12px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    /* Button hover effect */
+    a:hover {
+      background-color: #2980b9;
+      box-shadow: 0 6px 15px rgba(52, 152, 219, 0.6);
+      transform: translateY(-3px);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #888;
+    }
+
+    footer a {
+      color: #ffffff;
+      
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Link Expired</h1>
+    <p><b>Oops!</b> This reset password link has expired or already been used. Please request a new reset link if you still need to reset your password.</p>
+    <a href="/forgotform">Request New Link</a>
+
+  </div>
+
+</body>
+</html>
