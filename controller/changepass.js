@@ -1,5 +1,3 @@
-
-
 const User = require('../config/mongose'); // Ensure correct path
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
@@ -9,8 +7,8 @@ const crypto = require('crypto');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'pandyabhargav707@gmail.com', // Use environment variable for sensitive info
-    pass: 'kqxredzkmtmonszj', // Use environment variable for sensitive info
+    user: 'pandyabhargav707@gmail.com', 
+    pass: 'kqxredzkmtmonszj',
   },
 });
 
@@ -27,6 +25,7 @@ const sendForgotPasswordLink = (toEmail, token) => {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error('Error sending forgot password link email:', error);
+       return; 
     } else {
       console.log('Forgot password link sent successfully:', info.response);
     }
@@ -34,12 +33,9 @@ const sendForgotPasswordLink = (toEmail, token) => {
 };
 
 const forgotpaForm = (req, res) => {
-  res.render('forgetForm');
+  // Display the forgot password form and any flash messages
+  res.render('forgetForm', { message: req.flash('info') });
 };
-
-const linkedsennt =(req,res)=>{
-  res.render('linksend');
-}
 
 const requestPasswordReset = async (req, res) => {
   const { useremail } = req.body;
@@ -53,22 +49,23 @@ const requestPasswordReset = async (req, res) => {
 
     if (user) {
       const token = crypto.randomBytes(32).toString('hex');
-      user.resetPasswordToken = token; // Corrected field name
+      user.resetPasswordToken = token; 
       await user.save();
 
-      console.log(`User found: ${user.email}, Token: ${token}`); // Corrected template literal syntax
       sendForgotPasswordLink(useremail, token);
-      console.log(`Forgot password link sent to ${useremail}`); // Corrected template literal syntax
+      req.flash('success_msg', 'A password reset link has been sent to your email address. Please check your inbox (and spam folder).');
     } else {
-      console.error(`No user found with email: ${useremail}`); // Corrected template literal syntax
+      req.flash('error_msg', 'No account found with that email address.');
     }
 
-   res.render('linksend',{ useremail });
+    res.redirect('/forgotform');
   } catch (error) {
     console.error("Error while generating forgot password link:", error);
-    return res.status(500).send("Internal server error");
+    req.flash('error_msg', 'Internal server error');
+    return res.redirect('/forgotform');
   }
 };
+
 
 const forgotpassForm = (req, res) => {
   const token = req.params.token;
@@ -115,14 +112,15 @@ const forgotpasslogic = async (req, res) => {
     return res.redirect(`/forgotPassword/${token}`); // Corrected template literal syntax
   }
 };
+
 const linkexpa = (req, res) => {
   res.render("linkexpire");
 };
+
 module.exports = {
   forgotpaForm,
   requestPasswordReset,
   forgotpassForm,
   forgotpasslogic,
   linkexpa,
-  linkedsennt
 };

@@ -9,11 +9,11 @@ passport.use(new LocalStrategy(
         try {
             const user = await User.findOne({ email: email.toLowerCase() });
             if (!user) {
-                return done(null, false, { message: 'Invalid credentials' });
+                return done(null, false, { message: 'oops! user not Found' });
             }
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
-                return done(null, false, { message: 'Invalid credentials' });
+                return done(null, false, { message: 'Invalid username or password' });
             }
             return done(null, user);
         } catch (error) {

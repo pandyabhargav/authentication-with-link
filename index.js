@@ -8,6 +8,11 @@ const path = require('path');
 const mongoose = require('./config/mongose')
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
+const flash = require('connect-flash');
+const topicRoute = require('./Router/topicRoutes');
+const subTop = require('./Router/SubTopicRoute');
+const commentRoutes = require('./Router/comentRoute');
+
 
 
 
@@ -44,8 +49,16 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
-app.use('/',router,blogrouter,passwordRoute);
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    next();
+  });
+
+app.use('/',router,blogrouter,passwordRoute,topicRoute,subTop);
+app.use('/blogs', commentRoutes);
 
 
 

@@ -9,47 +9,73 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css">
     <link rel="stylesheet" href="css/index.css">
-<body>
     <style>
-        .comment-section {
-    border-top: 1px solid #eaeaea;
-    padding: 10px 0;
-}
+                body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
 
-.comment-title {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
 
-.comments-list {
-    margin-bottom: 10px;
-}
+        h2 {
+            text-align: center;
+            color: #333;
+        }
 
-.comment-item {
-    font-size: 14px;
-}
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
 
-.comment-form {
-    align-items: center;
-}
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensure padding is included in the total width */
+        }
 
-.comment-form .form-control {
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    flex-grow: 1;
-}
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
 
-.comment-form .btn {
-    border-radius: 20px;
-}
-.toggle-comments {
-    display: inline-block;
-    margin-bottom: 10px;
-}
+        button:hover {
+            background-color: #45a049; /* Darker shade on hover */
+        }
+
+        /* Optional: Responsive adjustments */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+        }
+
     </style>
- 
-
+<body>
+    
         <div class="sidebar">
             <div class="bg-img">
                 <div class="logo d-flex p-3 flex-wrap justify-content-evenly align-items-center">
@@ -59,17 +85,32 @@
                     </div>
                 </div>
                 <div class="custom-navbar scroll-bar">
-                    <ul class="p-3">
+                    <ul class="p-1">
+                        <!-- First Toggle -->
                         <li class="text-white d-flex text-start align-items-center"><i class="fa-solid fa-house-user me-3"></i> <span><a href="/">Dashboard</a></span></li>
-                        <li class="text-white d-flex text-start align-items-center" id="toggleProduct">
+                        <li class="text-white d-flex text-start align-items-center" id="toggleProduct1">
                             <i class="fa-solid fa-shop me-3"></i>
                             <span class="flex-grow-1">Blogs</span>
                             <i class="fa-solid fa-chevron-right"></i>
                         </li>
-                        <ul id="subList" class="text-white sub-list">
+                        <ul id="subList1" class="text-white sub-list">
                             <li><a href="/all">-<span class="ms-3">All Blogs</span></a></li>
                             <li><a href="/myblog">-<span class="ms-3">My Blogs </span></a></li>
                             <li><a href="/add">-<span class="ms-3">Add Blogs </span></a></li>
+                        </ul>
+                    </ul>
+                
+                    <ul class="p-1">
+                        <!-- Second Toggle -->
+                        <li class="text-white d-flex text-start align-items-center" id="toggleProduct2">
+                            <i class="fa-solid fa-shop me-3"></i>
+                            <span class="flex-grow-1">Topics</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </li>
+                        <ul id="subList2" class="text-white sub-list">
+                            <li><a href="/viewTopics">-<span class="ms-3">Topics</span></a></li>
+                            <li><a href="/">-<span class="ms-3">Sub Topics </span></a></li>
+                            <li><a href="/addTopics">-<span class="ms-3">Add Topics </span></a></li>
                         </ul>
                     </ul>
                 </div>
@@ -114,7 +155,8 @@
                                     </div>
                                     <div class="mx-2 d-flex align-items-center">
                                         <div class="pt-3">
-                                            
+                                            <h5><%= user && user.name ? user.name : 'Guest' %>!</h5>
+                                            <p>Admin <i class="fa-solid fa-angle-down"></i></p>
                                         </div>
                                     </div>
                                     <div class="dropdown-menu" style="display:none;">
@@ -130,55 +172,21 @@
             </header>
 
             <main id="mainContent" class="py-4">
-                <div class="container-fluid">
-                    <h1 class="mb-4 text-center">All Blogs</h1>
-            
-                    <% if (blogs.length === 0) { %>
-                        <div class="alert alert-info text-center">
-                            No blogs available. Please check back later!
+                <div class="container">
+                    <h2>Add a New Topic</h2>
+                    <form action="/addTopics" method="POST">
+                        <div>
+                            <label for="title">Title:</label>
+                            <input type="text" id="title" name="title" required>
                         </div>
-                    <% } else { %>
-                        <div class="row">
-                            <% blogs.forEach(blog => { %>
-                                <div class="col-md-4 mb-4">
-                                    <div class="card">
-                                        <img src="<%= blog.image %>" alt="Blog image" class="card-img-top" style="height: 200px; object-fit: cover;">
-                                        <div class="card-body">
-                                            <h5 class="card-title"><%= blog.title %></h5>
-                                            <p class="card-text"><%= blog.content.substring(0, 100) + (blog.content.length > 100 ? '...' : '') %></p>
-                                            <p class="text-muted">Posted by: <%= blog.author %></p>
-            
-                                            <button class="btn btn-secondary btn-sm toggle-comments" id="toggleComments<%= blog._id %>">Show Comments</button>
-                                            <ul class="comments-list list-unstyled" id="commentsList<%= blog._id %>" style="display: none;">
-                                                <% if (blog.comments && blog.comments.length > 0) { %>
-                                                    <% blog.comments.forEach(comment => { %>
-                                                        <li class="mb-2">
-                                                            <strong><%= comment.user.username %></strong>: <%= comment.text %>
-                                                        </li>
-                                                    <% }) %>
-                                                <% } else { %>
-                                                    <p>No comments yet. Be the first to comment!</p>
-                                                <% } %>
-                                            </ul>
-            
-                                            <!-- Comment Form -->
-                                            <form action="/blogs/<%= blog._id %>/comments" method="POST" class="mt-2">
-                                                <div class="form-group">
-                                                    <label for="comment">Add a comment:</label>
-                                                    <input name="text" id="comment<%= blog._id %>" class="form-control" required>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            <% }) %>
+                        <div>
+                            <label for="description">Description:</label>
+                            <textarea id="description" name="description" required></textarea>
                         </div>
-                    <% } %>
+                        <button type="submit">Add Topic</button>
+                    </form>
                 </div>
             </main>
-            
-            
             
         </div>
 
@@ -194,32 +202,43 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <!-- Include ApexCharts JS -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const profileDropdown = document.getElementById('profileDropdown');
+    const dropdownMenu = profileDropdown.querySelector('.dropdown-menu');
 
-<script>
-    document.getElementById('toggleProduct').addEventListener('click', function() {
-    const subList = document.getElementById('subList');
-    subList.classList.toggle('expanded'); // Toggle the expanded class
-
-    setTimeout(() => {
-            document.getElementById('loaderContainer').style.display = 'none';
-            // document.getElementById('content').style.display = 'block';
-        }, 1000); // Change the delay as needed
-
-});
-
-
-document.querySelectorAll('.toggle-comments').forEach(button => {
-        button.addEventListener('click', () => {
-            const commentsList = document.getElementById(`commentsList${button.id.replace('toggleComments', '')}`);
-            if (commentsList.style.display === 'none' || commentsList.style.display === '') {
-                commentsList.style.display = 'block';
-                button.textContent = 'Hide Comments';
-            } else {
-                commentsList.style.display = 'none';
-                button.textContent = 'Show Comments';
-            }
-        });
+    // Toggle dropdown visibility on click
+    profileDropdown.addEventListener('click', (event) => {
+        // Prevent the click from propagating to the window click listener
+        event.stopPropagation();
+        // Toggle dropdown menu visibility
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
     });
-</script>
+
+    // Close dropdown if clicked outside
+    window.addEventListener('click', () => {
+        dropdownMenu.style.display = 'none';
+    });
+
+    // Simulate loading (loader)
+    setTimeout(() => {
+        document.getElementById('loaderContainer').style.display = 'none';
+        
+    }, 1000); 
+
+    // Toggle the first subList
+    document.getElementById('toggleProduct2').addEventListener('click', function() {
+        const subList = document.getElementById('subList2');
+        subList.classList.toggle('expanded'); // Toggle the expanded class
+    });
+
+    // Toggle the second subList
+    document.getElementById('toggleProduct1').addEventListener('click', function() {
+        const subList1 = document.getElementById('subList1');
+        subList1.classList.toggle('expanded'); // Toggle the expanded class for second list
+    });
+});
+    </script>
+
 </body>
 </html>

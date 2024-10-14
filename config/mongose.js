@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/yourDatabase', {
-  useNewUrlParser: true, // Keep this if needed for older Node.js versions
+  useNewUrlParser: true,
+  useUnifiedTopology: true, // Keep this if needed for older Node.js versions
 }).then(() => {
   console.log('MongoDB connected successfully');
 }).catch((err) => {

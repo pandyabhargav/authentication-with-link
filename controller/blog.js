@@ -20,13 +20,19 @@ exports.renderEditBlog = (req, res) => {
 
 
 exports.renderAllBlogs = (req, res) => {
-
   Blog.find()
+    .populate('user') // Populate user data if needed
+    .populate('comments') // Populate comments to include user information
     .then(blogs => {
       res.render('allblog', { blogs, user: req.user });
     })
-    .catch(err => console.log(err)); 
+    .catch(err => {
+      console.error('Error fetching all blogs:', err);
+      res.status(500).send('Internal Server Error');
+    });
 };
+
+
 
 
 exports.renderMyBlogs = (req, res) => {

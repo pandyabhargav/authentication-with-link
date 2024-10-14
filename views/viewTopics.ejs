@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZwiGato</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css">
+    <link rel="stylesheet" href="css/index.css">
+
+<style>
+body {
+    background-color: #f5f7fa; /* Light background for a clean look */
+    font-family: 'Arial', sans-serif; /* Clean and modern font */
+}
+
+.topic-item {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.topic-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.subtopic-item {
+    transition: background-color 0.3s;
+}
+
+.subtopic-item:hover {
+    background-color: #e8f0fe; /* Light blue on hover for subtopics */
+}
+
+h2 {
+    font-family: 'Georgia', serif; /* Elegant font for headings */
+    color: #343a40; /* Darker text for contrast */
+}
+
+h3, h4 {
+    font-family: 'Arial', sans-serif; /* Clean font for titles */
+}
+
+.text-primary {
+    color: #007bff; /* Bootstrap primary color */
+}
+
+.text-muted {
+    color: #6c757d; /* Muted text color for descriptions */
+}
+
+.no-subtopics {
+    font-style: italic; /* Italicize the no-subtopics message for emphasis */
+}
+
+/* Add some padding and margins for overall spacing */
+.container {
+    padding: 0 15px;
+}
+
+
+</style>
+
+
+<body>
+    
+        <div class="sidebar">
+            <div class="bg-img">
+                <div class="logo d-flex p-3 flex-wrap justify-content-evenly align-items-center">
+                    <h3>ZwiGato</h3>
+                    <div>
+                        <img src="images/header.gif" alt="fire" />
+                    </div>
+                </div>
+                <div class="custom-navbar scroll-bar">
+                    <ul class="p-1">
+                        <!-- First Toggle -->
+                        <li class="text-white d-flex text-start align-items-center"><i class="fa-solid fa-house-user me-3"></i> <span><a href="/">Dashboard</a></span></li>
+                        <li class="text-white d-flex text-start align-items-center" id="toggleProduct1">
+                            <i class="fa-solid fa-shop me-3"></i>
+                            <span class="flex-grow-1">Blogs</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </li>
+                        <ul id="subList1" class="text-white sub-list">
+                            <li><a href="/all">-<span class="ms-3">All Blogs</span></a></li>
+                            <li><a href="/myblog">-<span class="ms-3">My Blogs </span></a></li>
+                            <li><a href="/add">-<span class="ms-3">Add Blogs </span></a></li>
+                        </ul>
+                    </ul>
+                
+                    <ul class="p-1">
+                        <!-- Second Toggle -->
+                        <li class="text-white d-flex text-start align-items-center" id="toggleProduct2">
+                            <i class="fa-solid fa-shop me-3"></i>
+                            <span class="flex-grow-1">Topics</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </li>
+                        <ul id="subList2" class="text-white sub-list">
+                            <li><a href="/">-<span class="ms-3">Topics</span></a></li>
+                            <li><a href="/">-<span class="ms-3">Sub Topics </span></a></li>
+                            <li><a href="/addTopics">-<span class="ms-3">Add Topics </span></a></li>
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content d-flex flex-wrap">
+            <header class="bg-white">
+                <div class="container-fluid">
+                    <div class="d-flex flex-wrap col-12 bg-white p-3 justify-content-between align-items-center">
+                        <div class="d-flex flex-wrap col-4 align-items-center">
+                            <div class="toglclass col-1 d-flex align-items-center" id="toggleSidebar">
+                                <i class="fa-solid fa-circle-left"></i>
+                            </div>
+                            <div class="col-11">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="m-0">Food that's you loved!</h5>
+                                    <img src="images/header.gif" alt="fire" />
+                                </div>
+                                <div>
+                                    <p class="m-0">Delight your taste with our most famous food !!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8 d-flex flex-wrap justify-content-end align-items-center">
+                            <div class="header-icon d-flex flex-wrap align-items-center">
+                                <div class="icon-bg m-1 rounded">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </div>
+                                <div class="icon-bg m-1 rounded">
+                                    <i class="fa-solid fa-bell"></i>
+                                </div>
+                                <div class="icon-bg m-1 rounded">
+                                    <i class="fa-solid fa-message"></i>
+                                </div>
+                                <div class="icon-bg m-1 rounded">
+                                    <i class="fa-solid fa-moon"></i>
+                                </div>
+                                <div class="profile d-flex flex-wrap justify-content-end align-items-center ms-4" id="profileDropdown">
+                                    <div class="profil-img">
+                                        <img src="images/20230620_095708.png" class="rounded-circle" alt="profile-img" />
+                                    </div>
+                                    <div class="mx-2 d-flex align-items-center">
+                                        <div class="pt-3">
+                                            <div class="mx-2 d-flex align-items-center">
+                                                <div class="pt-3">
+                                                    <h5><%= user && user.name ? user.name : 'Guest' %>!</h5>
+                                                    <p>Admin <i class="fa-solid fa-angle-down"></i></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-menu" style="display:none;">
+                                        <a class="dropdown-item disabled" href="/profile">Profile</a>
+                                        <a class="dropdown-item disabled" href="/settings">Settings</a>
+                                        <a class="dropdown-item" href="/logout">Logout</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main id="mainContent" class="py-5">
+                <div class="container topic">
+                    <h2 class="text-center mb-4 font-weight-bold text-dark">Topics</h2>
+                    <div class="row">
+                        <% topics.forEach(topic => { %>
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="topic-item border rounded shadow-sm p-4 bg-white">
+                                    <h3 class="topic-title text-primary font-weight-bold"><%= topic.title %></h3>
+                                    <p class="topic-description text-muted"><%= topic.description %></p>
+                                    <p class="posted-by text-secondary">Posted by: <strong><%= topic.user ? topic.user.name : 'Guest' %></strong></p>
+                                    
+                                    <!-- Subtopics Section -->
+                                    <% if (topic.subtopics && topic.subtopics.length > 0) { %>
+                                        <h4 class="subtopics-title mt-3 text-secondary font-weight-bold">Subtopics</h4>
+                                        <ul class="subtopics-list list-unstyled">
+                                            <% topic.subtopics.forEach(subtopic => { %>
+                                                <li class="subtopic-item mb-3 p-3 border rounded bg-light shadow-sm">
+                                                    <strong><%= subtopic.title %></strong>: <%= subtopic.description %>
+                                                    <p class="posted-by text-muted">Posted by: <strong><%= subtopic.user ? subtopic.user.name : 'Guest' %></strong></p>
+                                                </li>
+                                            <% }) %>
+                                        </ul>
+                                    <% } else { %>
+                                        <p class="no-subtopics text-muted">No subtopics available for this topic.</p>
+                                    <% } %>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+            </main>
+            
+            
+             
+        </div>
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <!-- Include ApexCharts JS -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const profileDropdown = document.getElementById('profileDropdown');
+    const dropdownMenu = profileDropdown.querySelector('.dropdown-menu');
+
+    // Toggle dropdown visibility on click
+    profileDropdown.addEventListener('click', (event) => {
+        // Prevent the click from propagating to the window click listener
+        event.stopPropagation();
+        // Toggle dropdown menu visibility
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Close dropdown if clicked outside
+    window.addEventListener('click', () => {
+        dropdownMenu.style.display = 'none';
+    });
+
+    // Simulate loading (loader)
+    setTimeout(() => {
+        document.getElementById('loaderContainer').style.display = 'none';
+        
+    }, 1000); 
+
+    // Toggle the first subList
+    document.getElementById('toggleProduct2').addEventListener('click', function() {
+        const subList = document.getElementById('subList2');
+        subList.classList.toggle('expanded'); // Toggle the expanded class
+    });
+
+    // Toggle the second subList
+    document.getElementById('toggleProduct1').addEventListener('click', function() {
+        const subList1 = document.getElementById('subList1');
+        subList1.classList.toggle('expanded'); // Toggle the expanded class for second list
+    });
+});
+
+
+
+// document.querySelectorAll('.toggle-comments').forEach(button => {
+//         button.addEventListener('click', () => {
+//             const commentsList = document.getElementById(`commentsList${button.id.replace('toggleComments', '')}`);
+//             if (commentsList.style.display === 'none' || commentsList.style.display === '') {
+//                 commentsList.style.display = 'block';
+//                 button.textContent = 'Hide Comments';
+//             } else {
+//                 commentsList.style.display = 'none';
+//                 button.textContent = 'Show Comments';
+//             }
+//         });
+//     });
+
+
+
+
+    </script>
+
+</body>
+</html>

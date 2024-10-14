@@ -5,7 +5,8 @@ const BlogSchema = new mongoose.Schema({
   content: { type: String, required: true },
   image: { type: String },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Reference to the user
-  author: String ,
+  author: String,
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }], // Reference to comments
   createdAt: { type: Date, default: Date.now }
 });
 

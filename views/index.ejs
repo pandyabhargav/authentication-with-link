@@ -29,20 +29,36 @@
                     </div>
                 </div>
                 <div class="custom-navbar scroll-bar">
-                    <ul class="p-3">
+                    <ul class="p-1">
+                        <!-- First Toggle -->
                         <li class="text-white d-flex text-start align-items-center"><i class="fa-solid fa-house-user me-3"></i> <span><a href="/">Dashboard</a></span></li>
-                        <li class="text-white d-flex text-start align-items-center" id="toggleProduct">
+                        <li class="text-white d-flex text-start align-items-center" id="toggleProduct1">
                             <i class="fa-solid fa-shop me-3"></i>
                             <span class="flex-grow-1">Blogs</span>
                             <i class="fa-solid fa-chevron-right"></i>
                         </li>
-                        <ul id="subList" class="text-white sub-list">
+                        <ul id="subList1" class="text-white sub-list">
                             <li><a href="/all">-<span class="ms-3">All Blogs</span></a></li>
                             <li><a href="/myblog">-<span class="ms-3">My Blogs </span></a></li>
                             <li><a href="/add">-<span class="ms-3">Add Blogs </span></a></li>
                         </ul>
                     </ul>
+                
+                    <ul class="p-1">
+                        <!-- Second Toggle -->
+                        <li class="text-white d-flex text-start align-items-center" id="toggleProduct2">
+                            <i class="fa-solid fa-shop me-3"></i>
+                            <span class="flex-grow-1">Topics</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </li>
+                        <ul id="subList2" class="text-white sub-list">
+                            <li><a href="/viewTopics">-<span class="ms-3">Topics</span></a></li>
+                            <li><a href="/addSubtopic">-<span class="ms-3">Add Sub Topics </span></a></li>
+                            <li><a href="/addTopics">-<span class="ms-3">Add Topics </span></a></li>
+                        </ul>
+                    </ul>
                 </div>
+                
             </div>
         </div>
 
@@ -1207,7 +1223,6 @@ document.addEventListener('DOMContentLoaded', () => {
     profileDropdown.addEventListener('click', (event) => {
         // Prevent the click from propagating to the window click listener
         event.stopPropagation();
-        
         // Toggle dropdown menu visibility
         dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
     });
@@ -1217,19 +1232,24 @@ document.addEventListener('DOMContentLoaded', () => {
         dropdownMenu.style.display = 'none';
     });
 
-        // Simulate loading
-        setTimeout(() => {
-            document.getElementById('loaderContainer').style.display = 'none';
-            // document.getElementById('content').style.display = 'block';
-        }, 1000); // Change the delay as needed
+    // Simulate loading (loader)
+    setTimeout(() => {
+        document.getElementById('loaderContainer').style.display = 'none';
+        
+    }, 1000); 
 
+    // Toggle the first subList
+    document.getElementById('toggleProduct2').addEventListener('click', function() {
+        const subList = document.getElementById('subList2');
+        subList.classList.toggle('expanded'); // Toggle the expanded class
+    });
+
+    // Toggle the second subList
+    document.getElementById('toggleProduct1').addEventListener('click', function() {
+        const subList1 = document.getElementById('subList1');
+        subList1.classList.toggle('expanded'); // Toggle the expanded class for second list
+    });
 });
-
-document.getElementById('toggleProduct').addEventListener('click', function() {
-    const subList = document.getElementById('subList');
-    subList.classList.toggle('expanded'); // Toggle the expanded class
-});
-
 
 </script>
 </body>

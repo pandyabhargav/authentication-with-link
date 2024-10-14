@@ -26,7 +26,18 @@
             <div class="row justify-content-center singup-main align-items-center signin">
                 <div class="p-5 col-12">
                     <h2>Sign in</h2>
-                    <p class="text-danger" id="error-message"></p>
+                    <% if (success_msg && success_msg.length > 0) { %>
+                        <div class="alert alert-success m-5" id="successMessage">
+                            <%= success_msg %>
+                        </div>
+                    <% } %>
+                    
+                    <!-- Error message -->
+                    <% if (error_msg && error_msg.length > 0) { %>
+                        <div class="alert alert-danger" id="errorMessage">
+                            <%= error_msg %>
+                        </div>
+                    <% } %>
                     <p>or <span><a href="/singup" class="text-orange">create an account</a></span></p>
                     <form id="login-form" action="/login" method="POST">
                         <div class="row mb-3 py-3">
@@ -63,6 +74,8 @@
                         <div class="d-flex flex-wrap col-12 singup-foter py-3 justify-content-center">
                             <a href="/forgotForm" style="color: blue;">Forget password</a>
                         </div>
+                        
+                        
                     </form>
                     <p class="d-flex flex-wrap singup-foter p-3">
                         By logging in, I accept the <span class="highlight">Terms & Conditions & Privacy Policy</span>
@@ -76,6 +89,33 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script>
+        // Function to hide alert messages after 2 seconds
+        setTimeout(() => {
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (successMessage) {
+                successMessage.style.display = 'none';
+            }
+            if (errorMessage) {
+                errorMessage.style.display = 'none';
+            }
+        }, 5000);
+        
+        function togglePasswordVisibility(id) {
+            const passwordInput = document.getElementById(id);
+            const icon = passwordInput.nextElementSibling;
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
 </html>
